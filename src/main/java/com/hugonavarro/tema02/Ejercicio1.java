@@ -1,6 +1,6 @@
 package com.hugonavarro.tema02;
 
-public class Main {
+public class Ejercicio1 {
     static void main() {
 
     }
