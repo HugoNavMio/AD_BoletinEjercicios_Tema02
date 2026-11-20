@@ -3,7 +3,7 @@ package com.hugonavarro.tema02;
 import java.sql.*;
 import java.util.Scanner;
 
-public class MainEjercicio1 {
+public class MainParaLosEjercicios {
     static void main() {
         Scanner sc = new Scanner(System.in);
         int opcion;
@@ -35,6 +35,8 @@ public class MainEjercicio1 {
 
         sc.close();
     }
+
+    // Ejercicio 1
 
     private static void listarEquipos() {
         String sql = "SELECT * FROM equipos";
