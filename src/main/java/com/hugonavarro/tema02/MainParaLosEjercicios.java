@@ -15,6 +15,7 @@ public class MainParaLosEjercicios {
             IO.println("\nOPCIONES A ELEGIR:");
             IO.println("\n1. Listar equipos");
             IO.println("2. Ciclistas por equipo");
+            IO.println("3. Listar etapas");
             IO.println("0. Salir");
             IO.println("-----------------");
             IO.print("Seleccione una opción: ");
@@ -27,6 +28,9 @@ public class MainParaLosEjercicios {
                     break;
                 case 2:
                     ciclistasPorEquipo();
+                    break;
+                case 3:
+                    listarEtapas();
                     break;
                 case 0:
                     IO.println("\nSaliendo...");
@@ -160,6 +164,101 @@ public class MainParaLosEjercicios {
             }
         } catch (SQLException sqle) {
             IO.println("\nError al consultar los ciclistas.");
+            IO.println(sqle.getMessage());
+        }
+    }
+
+    // Ejercicio 3
+
+    private static void listarEtapas() {
+        String sql = """
+                SELECT
+                    id_etapa,
+                    tipo,
+                    fecha,
+                    salida,
+                    llegada,
+                    distancia_km
+                FROM etapas
+                ORDER BY id_etapa
+                """;
+
+        try (
+                Connection conn = Conexion.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+            IO.println("\n=================");
+            IO.println("LISTADO DE ETAPAS");
+            IO.println("=================");
+
+            System.out.printf("\n%-5s %-12s %-12s %-20s %-25s %-10s%n", "ID", "TIPO", "FECHA", "SALIDA", "LLEGADA", "KM");
+
+            IO.println("------------------------------------------------------------------------------------------");
+
+            boolean hayEtapas = false;
+
+            while (rs.next()) {
+                hayEtapas = true;
+
+                int id = rs.getInt("id_etapa");
+                String tipo = rs.getString("tipo");
+                String fecha = rs.getDate("fecha").toString();
+                String salida = rs.getString("salida");
+                String llegada = rs.getString("llegada");
+                double kilometros = rs.getDouble("distancia_km");
+
+                System.out.printf("%-5d %-12s %-12s %-20s %-25s %-10.2f%n", id, tipo, fecha, salida, llegada, kilometros);
+            }
+
+            if (!hayEtapas) {
+                IO.println("No hay etapas registradas.");
+            }
+
+            IO.println("------------------------------------------------------------------------------------------");
+        } catch (SQLException sqle) {
+            IO.println("\nError al consultar las etapas.");
+            IO.println(sqle.getMessage());
+        }
+
+        resumenEtapasPorTipo();
+    }
+
+    private static void resumenEtapasPorTipo() {
+        String sql = """
+                SELECT
+                    tipo,
+                    COUNT(*) AS cantidad_etapas,
+                    SUM(distancia_km) AS kilometros_totales
+                FROM etapas
+                GROUP BY tipo
+                ORDER BY tipo
+                """;
+
+        try (
+                Connection conn = Conexion.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql);
+                ResultSet rs = stmt.executeQuery()
+        ) {
+            IO.println("\n=================");
+            IO.println("RESUMEN DE ETAPAS");
+            IO.println("=================");
+
+            System.out.printf("\n%-15s %-20s %-20s%n", "TIPO", "N.º DE ETAPAS", "KILÓMETROS");
+
+            IO.println("------------------------------------------------------------");
+
+            while (rs.next()) {
+                String tipo = rs.getString("tipo");
+                int cantidad = rs.getInt("cantidad_etapas");
+                double kilometros = rs.getDouble("kilometros_totales");
+
+                System.out.printf("%-15s %-20d %-20.2f%n", tipo, cantidad, kilometros);
+            }
+
+            IO.println("------------------------------------------------------------");
+        } catch (SQLException sqle) {
+            IO.println("\nError al calcular el resumen de las etapas.");
             IO.println(sqle.getMessage());
         }
     }
