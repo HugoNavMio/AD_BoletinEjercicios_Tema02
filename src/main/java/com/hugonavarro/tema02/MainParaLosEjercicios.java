@@ -8,6 +8,7 @@ import com.hugonavarro.tema02.ejercicio5.ClasificacionEtapa;
 import com.hugonavarro.tema02.ejercicio6.ClasificacionMontanya;
 import com.hugonavarro.tema02.ejercicio7.ClasificacionRegularidad;
 import com.hugonavarro.tema02.ejercicio8.ClasificacionGeneral;
+import com.hugonavarro.tema02.ejercicio9.ClasificacionEquipos;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -30,6 +31,7 @@ public class MainParaLosEjercicios {
             IO.println("6. Clasificación de la monataña");
             IO.println("7. Clasificación de la regularidad");
             IO.println("8. Clasificación general");
+            IO.println("9. Clasificación por equipos");
             IO.println("0. Salir");
             IO.println("--------------------");
             IO.print("Seleccione una opción: ");
@@ -60,6 +62,9 @@ public class MainParaLosEjercicios {
                     break;
                 case 8:
                     ClasificacionGeneral.clasificacionGeneral();
+                    break;
+                case 9:
+                    ClasificacionEquipos.clasificacionEquipos();
                     break;
                 case 0:
                     IO.println("\nSaliendo...");
