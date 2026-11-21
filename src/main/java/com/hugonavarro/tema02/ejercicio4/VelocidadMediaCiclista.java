@@ -72,7 +72,7 @@ public class VelocidadMediaCiclista {
                 WHERE c.id_ciclista = ?
                     AND c.id_equipo = ?
                     AND re.estado = 'FINALIZADO'
-                GROUP BY c.id_ciclista, c.nombre, e.nombre;
+                GROUP BY c.id_ciclista, c.nombre, e.nombre
                 """;
 
         try (

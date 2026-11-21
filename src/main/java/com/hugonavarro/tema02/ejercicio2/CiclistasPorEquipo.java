@@ -44,7 +44,7 @@ public class CiclistasPorEquipo {
                 INNER JOIN equipos e
                     ON c.id_equipo = e.id_equipo
                 WHERE (? = 0 OR c.id_equipo = ?)
-                ORDER BY e.nombre, c.nombre;
+                ORDER BY e.nombre, c.nombre
                 """;
 
         try (
