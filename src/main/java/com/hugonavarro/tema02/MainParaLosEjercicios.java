@@ -4,6 +4,7 @@ import com.hugonavarro.tema02.ejercicio1.ListarEquipos;
 import com.hugonavarro.tema02.ejercicio2.CiclistasPorEquipo;
 import com.hugonavarro.tema02.ejercicio3.ListarEtapas;
 import com.hugonavarro.tema02.ejercicio4.VelocidadMediaCiclista;
+import com.hugonavarro.tema02.ejercicio5.ClasificacionEtapa;
 
 import java.sql.*;
 import java.util.Scanner;
@@ -22,6 +23,7 @@ public class MainParaLosEjercicios {
             IO.println("2. Ciclistas por equipo");
             IO.println("3. Listar etapas");
             IO.println("4. Velocidad media de un ciclista");
+            IO.println("5. Clasificación de una etapa");
             IO.println("0. Salir");
             IO.println("--------------------");
             IO.print("Seleccione una opción: ");
@@ -41,6 +43,9 @@ public class MainParaLosEjercicios {
                 case 4:
                     VelocidadMediaCiclista.velocidadMediaCiclista();
                     break;
+                case 5:
+                    ClasificacionEtapa.clasificacionEtapa();
+                     break;
                 case 0:
                     IO.println("\nSaliendo...");
                     break;
